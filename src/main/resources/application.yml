@@ -1,0 +1,24 @@
+spring:
+    applications:
+        name: sfg-di
+    profiles:
+        active:
+            - dog
+            - TN
+            - prod
+
+com:
+    username: YmlUserName
+    password: YmlPassword
+    jdbcurl: YmlUrl
+
+---
+spring:
+  config:
+    activate:
+        on-profile: prod
+
+com:
+    username: YmlProdUserName
+    password: YmlProdPassword
+    jdbcurl: YmlProdUrl

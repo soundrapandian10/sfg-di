@@ -1,0 +1,4 @@
+com:
+    username: YmlDevUserName
+    password: YmlDevPassword
+    jdbcurl: YmlDevURL
