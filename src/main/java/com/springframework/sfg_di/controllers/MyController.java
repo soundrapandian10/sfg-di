@@ -1,19 +1,18 @@
 package com.springframework.sfg_di.controllers;
 
 import org.springframework.stereotype.Controller;
-
-import com.springframework.sfg_di.services.PrimaryBean;
+import com.springframework.sfg_di.services.GreetingService;
 
 @Controller
 public class MyController {
 
-    private final PrimaryBean primaryBean;
+    private final GreetingService greetingService;
 
-    public MyController(PrimaryBean primaryBean) {
-        this.primaryBean = primaryBean;
+    public MyController(GreetingService greetingService) {
+        this.greetingService = greetingService;
     }
 
     public String sayHello() {
-        return primaryBean.sayGreeting();
+        return greetingService.sayGreeting();
     }
 }

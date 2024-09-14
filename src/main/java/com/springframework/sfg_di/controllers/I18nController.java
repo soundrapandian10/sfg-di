@@ -10,7 +10,7 @@ public class I18nController {
 
     private final GreetingService greetingService;
 
-    public I18nController(@Qualifier("i18Services") GreetingService greetingService) {
+    public I18nController(@Qualifier("i18nService") GreetingService greetingService) {
         this.greetingService = greetingService;
     }
 
