@@ -1,13 +1,16 @@
 package com.springframework.sfg_di.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 
 import com.springframework.pets.PetService;
 import com.springframework.pets.PetServiceFactory;
+import com.springframework.sfg_di.datasoruce.FakeDataSource;
 import com.springframework.sfg_di.repositories.EnglishGreetingRepository;
 import com.springframework.sfg_di.repositories.EnglishGreetingRepositoryImpl;
 import com.springframework.sfg_di.services.ConstructorGreetingService;
@@ -17,9 +20,21 @@ import com.springframework.sfg_di.services.PrimaryGreetingService;
 import com.springframework.sfg_di.services.PropertyInjectedGreetingService;
 import com.springframework.sfg_di.services.SetterInjectedGreetingService;
 
+@PropertySource("classpath:datasource.properties")
 @ImportResource("classpath:sfgdi-config.xml")
 @Configuration
 public class GreetingServiceConfig {
+
+    @Bean
+    FakeDataSource fakeDataSource(@Value("${com.username}") String username, @Value("${com.password}") String password,
+            @Value("${com.jdbcurl}") String jdbcurl) {
+        FakeDataSource fakeDataSource = new FakeDataSource();
+        fakeDataSource.setUserName(username);
+        fakeDataSource.setPassword(password);
+        fakeDataSource.setJdbcurl(jdbcurl);
+
+        return fakeDataSource;
+    }
 
     @Bean
     PetServiceFactory petServiceFactory() {
@@ -38,7 +53,7 @@ public class GreetingServiceConfig {
         return petServiceFactory.getPetService("cat");
     }
 
-    @Profile({"TN", "default" })
+    @Profile({ "TN", "default" })
     @Bean("i18nService")
     I18nTamilService i18nTamilService() {
         return new I18nTamilService();
